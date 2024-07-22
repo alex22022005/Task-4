@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intensive Learning</title>
+  <link rel="stylesheet" href="todolist.css">
+</head>
+<body>
+  <center>
+    <h1>Intensive LEARNING</h1>
+    <p>Don't Miss the important COURSES for you to register</p>
+    <hr>
+  </center>
+  <div class="topnav">
+    <a href="todolist.html" class="active">To-Do List</a>
+    <div class="dropdown">
+      <a href="product.html" class="dropbtn">Products</a>
+      <div class="dropdown-content">
+        <a href="product.html">Products</a>
+        <a href="product1.html">AI & ML</a>
+        <a href="product2.html">Embedded and IOT</a>
+        <a href="product3.html">Web Development</a>
+      </div>
+    </div>
+    <a href="about.html">About</a> 
+    <a href="index.html">Home</a>
+  </div>
+
+  <!-- To-Do List Section -->
+  <div class="todo-container">
+    <h2>To-Do List</h2>
+    <input type="text" id="todo-input" class="todo-input" placeholder="Add a new task">
+    <button onclick="addTask()" class="add-btn">Add</button>
+    <ul id="todo-list" class="todo-list"></ul>
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <p id="progress-text">0% Completed</p>
+  </div>
+
+  <script>
+    function addTask() {
+      const input = document.getElementById('todo-input');
+      const taskText = input.value.trim();
+      if (taskText === '') {
+        alert('Please enter a task');
+        return;
+      }
+      const taskItem = document.createElement('li');
+      taskItem.className = 'todo-item';
+      taskItem.innerHTML = `
+        <input type="checkbox" class="task-checkbox" onclick="updateProgress()">
+        ${taskText}
+        <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
+      `;
+      document.getElementById('todo-list').appendChild(taskItem);
+      input.value = '';
+      updateProgress();
+    }
+
+    function deleteTask(button) {
+      const taskItem = button.parentElement;
+      document.getElementById('todo-list').removeChild(taskItem);
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const tasks = document.querySelectorAll('.todo-item');
+      const completedTasks = document.querySelectorAll('.task-checkbox:checked');
+      const progress = tasks.length ? (completedTasks.length / tasks.length) * 100 : 0;
+      const progressBar = document.getElementById('progress-bar');
+      const progressText = document.getElementById('progress-text');
+
+      progressBar.style.width = progress + '%';
+      progressText.textContent = Math.round(progress) + '% Completed';
+    }
+  </script>
+
+  <footer>
+    <center>
+      <h2>Contact</h2>
+      <h3>9876543210 | intensivelearning@gmail.com</h3>
+      <p>9 avenue st, tirunelveli</p>
+    </center>
+  </footer>
+</body>
+</html>
